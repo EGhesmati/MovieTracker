@@ -1,0 +1,32 @@
+/* Style for the Dark Mode Button */
+.nav_dark_mode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav_dark_mode .dark_mode_button {
+    margin-left: 20px; /* Space between the dark mode button and the nav links */
+    width: 40px; /* Size of the button */
+    height: 40px; /* Size of the button */
+    background: #fff; /* Light background for light mode */
+    border-radius: 50%; /* Circular shape */
+    border: 2px solid #ccc; /* Light border for light mode */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+/* Dark mode specific styling */
+.nav_dark_mode .dark_mode_button.dark {
+    background: #1a1a2e; /* Dark background for dark mode */
+    border-color: #FF4D6D; /* Vibrant red border */
+}
+
+/* Light mode specific styling */
+.nav_dark_mode .dark_mode_button.light {
+    background: #F4EFEA; /* Light background for light mode */
+    border-color: #0096b7; /* Gold border for light mode */
+}

@@ -1,0 +1,40 @@
+/* Ensure the body and root container take up the full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content area */
+main {
+    flex: 1; /* Allows main content to take available space */
+    padding-bottom: 60px; /* Prevents content from being hidden under fixed footer */
+    box-sizing: border-box; /* Ensures padding is included in calculations */
+}
+
+/* Footer styles */
+.footer {
+    position: fixed; /* Fixes footer to the bottom of the viewport */
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Ensures footer spans full width */
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(244, 239, 234, 0.8); /* Off-White with transparency */
+    padding: 15px 20px;
+    border-top: 1px solid #dee2e6; /* Subtle top border */
+    color: #212529; /* Default text color */
+    font-size: 0.9rem;
+    text-align: center;
+    box-sizing: border-box; /* Ensure padding is included in width */
+    backdrop-filter: blur(10px); /* Adds blur effect */
+    transition: background-color 0}
+/* Dark mode styles */
+body.dark-mode .footer {
+    background-color: rgba(26, 26, 46, 0.8); /* Deep Dark Blue */
+    color: #ff758f; /* Bright Pink */
+    border-top: 1px solid #444; /* Subtle dark border */
+}

@@ -1,0 +1,217 @@
+/* Default light mode styles */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(244, 239, 234, 0.8); /* Off-White with transparency */
+    padding: 15px 20px;
+    position: sticky; /* Sticky navbar */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it stays above content */
+    gap: 20px; /* Gap between logo and links */
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+    backdrop-filter: blur(10px); /* Adds blur effect */
+    overflow: visible; /* Changed from hidden to allow dropdown to be visible */
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+/* Styling for the brand (logo and title) */
+.nav_brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1; /* Ensures the brand takes up remaining space */
+}
+
+.material-symbols-outlined {
+    color: #09122C; /* Dark Blue */
+    font-size: 32px;
+}
+
+h1 {
+    color: #09122C; /* Dark Blue */
+    margin: 0;
+}
+
+/* Styling for navigation links */
+.nav_links {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    list-style: none; /* Remove bullet points if using <ul> */
+    padding: 0;
+    margin: 0;
+}
+
+.nav_links a {
+    color: #872341; /* Rich Burgundy */
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav_links a:hover {
+    color: #BE3144; /* Vibrant Crimson */
+}
+
+/* Light Mode Active Link Styles */
+.nav_links a.active {
+    font-weight: 1000;
+    text-decoration: underline;
+    text-decoration-color: #BE3144; /* Crimson underline */
+    text-decoration-thickness: 3px; /* Thicker underline */
+    color: #BE3144; /* Matching link color */
+    transition: all 0.3s ease;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: rgb(26, 26, 46); /* Same as nav */
+}
+
+body.dark-mode nav {
+    background-color: rgba(26, 26, 46, 0.8); /* Deep Dark Blue */
+}
+
+body.dark-mode .nav_brand h1,
+body.dark-mode .material-symbols-outlined {
+    color: #ff4d6d; /* Soft Pink */
+}
+
+body.dark-mode .nav_links a {
+    color: #ff758f; /* Bright Pink */
+}
+
+body.dark-mode .nav_links a.active {
+    text-decoration-color: #ff5f5f; /* Soft Pink underline */
+    color: #ff5f5f;
+}
+
+body.dark-mode .nav_links a.active:hover {
+    color: #ff8787; /* Lighter Soft Pink */
+    text-decoration-color: #ff8787;
+}
+
+/* Dark Mode Button */
+.nav_dark_mode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav_dark_mode .dark_mode_button {
+    margin-left: 20px;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 50%;
+    border: 2px solid #08003a;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+/* Dark mode specific styling */
+.nav_dark_mode .dark_mode_button.dark {
+    background: #1a1a2e;
+    border-color: #FF4D6D;
+}
+
+/* Light mode specific styling */
+.nav_dark_mode .dark_mode_button.light {
+    background: #F4EFEA;
+}
+
+/* Active Class Styles */
+.nav_dark_mode .dark_mode_button.active {
+    background-color: #FF4D6D;
+    border-color: #FFF;
+}
+
+/* Hamburger Button - Initially hidden */
+.hamburger {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        padding: 15px;
+        position: sticky;
+        top: 0;
+    }
+
+    /* Show hamburger button on mobile */
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 1000;
+    }
+
+    .hamburger-line {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: rgba(9, 18, 44, 0.7);
+        transition: 0.3s;
+    }
+
+    /* Dark mode hamburger color */
+    body.dark-mode .hamburger-line {
+        background-color: #ff4d6d;
+    }
+
+    /* Hamburger animation */
+    .hamburger.active .hamburger-line:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active .hamburger-line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .hamburger-line:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    /* Mobile menu styles */
+    .nav_links {
+        position: fixed;
+        top: 70px; /* Position below navbar */
+        left: -100%; /* Hide off-screen */
+        width: 100%;
+        height: calc(100vh - 70px);
+        flex-direction: column;
+        background-color: rgba(244, 239, 234, 0.95);
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+        padding: 30px 0;
+        gap: 25px;
+        backdrop-filter: blur(10px);
+        z-index: 999;
+    }
+
+    /* Show menu when active */
+    .nav_links.active {
+        left: 0;
+    }
+
+    /* Dark mode mobile menu */
+    body.dark-mode .nav_links {
+        background-color: rgba(26, 26, 46, 0.95);
+    }
+
+    .nav_dark_mode {
+        margin-left: auto;
+    }
+}

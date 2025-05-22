@@ -1,0 +1,224 @@
+/* Light Mode (Default) */
+.movielist {
+    background-color: #F4EFEA; /* Off-White */
+    padding: 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.movie_list_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.movile_list_title {
+    color: #09122C; /* Dark Blue */
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Underline beneath the title */
+.movile_list_title::after {
+    content: "";
+    display: block;
+    width: 50%; /* Adjust the width as you prefer */
+    height: 2px;
+    background-color: #872341; /* Rich Burgundy */
+    margin-top: 5px;
+}
+
+.movie_list_fs {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.movie_filter {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.movie_filter_item {
+    color: #872341; /* Rich Burgundy */
+    background-color: #F4EFEA;
+    padding: 5px 10px;
+    border: 2px solid #872341;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.movie_filter_item.active {
+    color: #09122C; /* Dark Blue */
+    background-color: #BE3144; /* Vibrant Crimson */
+    border-color: #09122C;
+}
+
+.movie_filter_item:hover {
+    background-color: #BE3144; /* Vibrant Crimson */
+    color: white;
+}
+
+.movie_sorting {
+    padding: 5px 10px;
+    border: 2px solid #872341;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #09122C;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.movie_sorting:hover {
+    background-color: #F4EFEA;
+}
+
+/* Dark Mode Styling */
+.dark-mode .movielist {
+    background-color: #1a1a2e; /* Deep Dark Blue */
+    color: white;
+}
+
+.dark-mode .movile_list_title {
+    color: #ff4d6d; /* Soft Pink */
+}
+
+.dark-mode .movile_list_title::after {
+    background-color: #ff758f; /* Bright Pink */
+}
+
+.dark-mode .movie_filter_item {
+    color: #ff758f;
+    background-color: #1a1a2e;
+    border: 2px solid #ff4d6d;
+}
+
+.dark-mode .movie_filter_item.active {
+    color: #1a1a2e;
+    background-color: #ff4d6d;
+    border-color: #fff;
+}
+
+.dark-mode .movie_filter_item:hover {
+    background-color: #ff4d6d;
+    color: white;
+}
+
+.dark-mode .movie_sorting {
+    border: 2px solid #ff4d6d;
+    color: #fff;
+    background-color: #1a1a2e;
+}
+
+.dark-mode .movie_sorting:hover {
+    background-color: #ff4d6d;
+}
+
+/* Toggle Button */
+.dark-mode-toggle {
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+    background: #ff758f;
+}
+/* Add these responsive styles at the bottom */
+@media (max-width: 768px) {
+    .movie_list_header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .movile_list_title {
+        font-size: 20px;
+    }
+
+    .movile_list_title::after {
+        width: 70%;
+    }
+
+    .movie_list_fs {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .movie_filter {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: 5px;
+    }
+
+    .movie_filter_item {
+        flex-shrink: 0;
+        font-size: 13px;
+        padding: 4px 8px;
+    }
+
+    .movie_sorting {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .movielist {
+        padding: 15px;
+    }
+
+    .movile_list_title {
+        font-size: 18px;
+    }
+
+    .movie_filter_item {
+        font-size: 12px;
+    }
+
+    .movie_sorting {
+        font-size: 13px;
+    }
+
+    /* Touch device adjustments */
+    @media (hover: none) {
+        .movie_filter_item:hover {
+            background-color: initial;
+            color: #872341;
+        }
+
+        .dark-mode .movie_filter_item:hover {
+            background-color: initial;
+            color: #ff758f;
+        }
+
+        .movie_sorting:hover {
+            background-color: white;
+        }
+
+        .dark-mode .movie_sorting:hover {
+            background-color: #1a1a2e;
+        }
+    }
+}
+
+/* Existing styles remain below */

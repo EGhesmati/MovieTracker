@@ -9,7 +9,6 @@ Check out the live preview here:
 
 ## ✨ Features
 
-- 🔍 Search movies by title
 - 🎞️ Display movie details including poster, title, year, and more
 - 📱 Responsive design for desktop and mobile
 - 🧑‍💻 Simple and intuitive UI for easy browsing

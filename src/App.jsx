@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import './app.css';
+import './App.css';
 import './index.css';
 import Navbar from './components/Navbar/Navbar.jsx';
 import MovieList from './components/MovieLIst/MovieList.jsx';
@@ -36,6 +36,7 @@ const App = () => {
                                     <Route path="/" element={<MovieList type="popular" title="Popular" />} />
                                     <Route path="/top-rated" element={<MovieList type="top_rated" title="Top Rated" />} />
                                     <Route path="/upcoming" element={<MovieList type="upcoming" title="Upcoming" />} />
+                                    <Route path="/search" element={<MovieList type="search" title="Search" />} />
                                     <Route path="*" element={<Navigate to="/" replace />} />
                                 </Routes>
                             </div>

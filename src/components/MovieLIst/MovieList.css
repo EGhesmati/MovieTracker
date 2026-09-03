@@ -84,6 +84,15 @@
     background-color: #F4EFEA;
 }
 
+.movie_list_message {
+    color: #09122C;
+    font-size: 15px;
+}
+
+.dark-mode .movie_list_message {
+    color: #f4efea;
+}
+
 /* Dark Mode Styling */
 .dark-mode .movielist {
     background-color: #1a1a2e; /* Deep Dark Blue */

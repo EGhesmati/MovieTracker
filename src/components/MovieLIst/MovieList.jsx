@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import "./MovieList.css";
 import Moviecard from "./Moviecard.jsx";
 import FilterGroup from "./FilterGroup.jsx";
 
+const TMDB_API_KEY = "22c639cfa0e865169d6b5240e11530d8";
+
 const MovieList = ({ type, title }) => {
+    const [searchParams] = useSearchParams();
+    const query = type === "search" ? (searchParams.get("q") || "").trim() : null;
+
     const [movies, setMovies] = useState([]);
     const [filteredMovies, setFilteredMovies] = useState([]);
     const [minRating, setMinRating] = useState(0);
@@ -11,26 +17,51 @@ const MovieList = ({ type, title }) => {
     const [sortCategory, setSortCategory] = useState("popular");
     const [sortOrder, setSortOrder] = useState("ascending");
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetchMovies();
-    }, [type]);
+        const controller = new AbortController();
+        fetchMovies(controller.signal);
+        return () => controller.abort();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [type, query]);
 
     useEffect(() => {
         filterAndSortMovies();
     }, [movies, minRating, maxRating, sortCategory, sortOrder]);
 
-    const fetchMovies = async () => {
+    const fetchMovies = async (signal) => {
+        if (type === "search" && !query) {
+            setMovies([]);
+            setError(null);
+            setLoading(false);
+            return;
+        }
+
+        setLoading(true);
+        setError(null);
+
         try {
-            const response = await fetch(
-                `https://api.themoviedb.org/3/movie/${type}?api_key=22c639cfa0e865169d6b5240e11530d8`
-            );
+            const endpoint =
+                type === "search"
+                    ? `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}`
+                    : `https://api.themoviedb.org/3/movie/${type}?api_key=${TMDB_API_KEY}`;
+
+            const response = await fetch(endpoint, { signal });
+            if (!response.ok) {
+                throw new Error(`Request failed with status ${response.status}`);
+            }
             const data = await response.json();
             setMovies(data.results || []);
-        } catch (error) {
-            console.error("Failed to fetch movies:", error);
+        } catch (err) {
+            if (err.name === "AbortError") return;
+            console.error("Failed to fetch movies:", err);
+            setError("Something went wrong while fetching movies. Please try again.");
+            setMovies([]);
         } finally {
-            setLoading(false);
+            if (!signal?.aborted) {
+                setLoading(false);
+            }
         }
     };
 
@@ -73,10 +104,37 @@ const MovieList = ({ type, title }) => {
         setFilteredMovies(updatedMovies);
     };
 
+    const isSearch = type === "search";
+    const headerTitle = isSearch
+        ? query
+            ? `Search results for "${query}"`
+            : "Search"
+        : title;
+
+    const renderContent = () => {
+        if (loading) {
+            return <p>Loading movies...</p>;
+        }
+        if (error) {
+            return <p className="movie_list_message">{error}</p>;
+        }
+        if (isSearch && !query) {
+            return <p className="movie_list_message">Type a movie title above to search.</p>;
+        }
+        if (filteredMovies.length > 0) {
+            return filteredMovies.map((movie) => <Moviecard key={movie.id} movie={movie} />);
+        }
+        return (
+            <p className="movie_list_message">
+                {isSearch ? `No movies found matching "${query}".` : "Nothing found in this category"}
+            </p>
+        );
+    };
+
     return (
         <section className="movielist" id={type}>
             <header className="movie_list_header">
-                <h2 className="movie_list_title">{title}</h2>
+                <h2 className="movie_list_title">{headerTitle}</h2>
 
                 <div className="movie_list_fs">
                     <FilterGroup minRating={minRating} onRatingClick={handleFilter} />
@@ -94,15 +152,7 @@ const MovieList = ({ type, title }) => {
                 </div>
             </header>
 
-            <div className="movie_cards">
-                {loading ? (
-                    <p>Loading movies...</p>
-                ) : filteredMovies.length > 0 ? (
-                    filteredMovies.map((movie) => <Moviecard key={movie.id} movie={movie} />)
-                ) : (
-                    <p>Nothing found in this category</p>
-                )}
-            </div>
+            <div className="movie_cards">{renderContent()}</div>
         </section>
     );
 };
